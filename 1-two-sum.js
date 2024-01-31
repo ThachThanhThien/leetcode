@@ -21,29 +21,41 @@
 //     }
 // };
 
+// var twoSum = function (nums, target) {
+//     const mapValueIndex = {};
+//     for (let i = 0; i < nums.length; i++) {
+//         if (!mapValueIndex[nums[i]]) {
+//             mapValueIndex[nums[i]] = [i]
+//         } else {
+//             mapValueIndex[nums[i]].push(i);
+//         }
+//     }
+    
+//     for (let v of Object.keys(mapValueIndex)) {
+//         if (mapValueIndex[v].length == 2) {
+//             if (parseInt(v) * 2 === target) {
+//                 return mapValueIndex[v];
+//             }
+//         }
+//         if (mapValueIndex[v].length == 1) {
+//             const otherV = target - parseInt(v);
+//             if (mapValueIndex[otherV] && mapValueIndex[otherV].length === 1) {
+//                 return [...mapValueIndex[v], ...mapValueIndex[otherV]]
+//             }
+//         }
+//     }
+// };
+
 var twoSum = function (nums, target) {
     const mapValueIndex = {};
     for (let i = 0; i < nums.length; i++) {
-        if (!mapValueIndex[nums[i]]) {
-            mapValueIndex[nums[i]] = [i]
-        } else {
-            mapValueIndex[nums[i]].push(i);
+        const otherV = target - nums[i];
+        if (mapValueIndex.hasOwnProperty(otherV)) {
+            return [i, mapValueIndex[otherV]];
         }
+        mapValueIndex[nums[i]] = i;
     }
-    
-    for (let v of Object.keys(mapValueIndex)) {
-        if (mapValueIndex[v].length == 2) {
-            if (parseInt(v) * 2 === target) {
-                return mapValueIndex[v];
-            }
-        }
-        if (mapValueIndex[v].length == 1) {
-            const otherV = target - parseInt(v);
-            if (mapValueIndex[otherV] && mapValueIndex[otherV].length === 1) {
-                return [...mapValueIndex[v], ...mapValueIndex[otherV]]
-            }
-        }
-    }
-};
+    return null;
+}
 
 console.log(twoSum([2, 7, 11, 15], 9));
